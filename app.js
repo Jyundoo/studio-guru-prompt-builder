@@ -5,7 +5,8 @@ const form = $("#builderForm");
 const controls = {
   teacherName: $("#teacherName"), teacherType: $("#teacherType"), nametagName: $("#nametagName"),
   uppercaseName: $("#uppercaseName"), hijabColor: $("#hijabColor"), hairStyle: $("#hairStyle"),
-  blazerColor: $("#blazerColor"), studioBackground: $("#studioBackground"), imageStyle: $("#imageStyle")
+  blazerColor: $("#blazerColor"), studioBackground: $("#studioBackground"), imageStyle: $("#imageStyle"),
+  pose: $("#pose"), removeGlassesReflection: $("#removeGlassesReflection")
 };
 
 const sliderConfig = [
@@ -51,19 +52,31 @@ function teacherText() {
   return `Kemaskan rambut dan penampilan secara profesional dengan gaya “${controls.hairStyle.value}”. Pastikan gaya keseluruhan sopan, formal dan sesuai untuk potret rasmi sekolah.`;
 }
 
+function poseText() {
+  const poses = {
+    front: "Gunakan pose menghadap hadapan dengan bahu seimbang dan postur tegak.",
+    left: "Gunakan pose badan sedikit menghadap ke kiri sambil wajah kekal jelas menghadap kamera.",
+    right: "Gunakan pose badan sedikit menghadap ke kanan sambil wajah kekal jelas menghadap kamera.",
+    arms: "Gunakan pose peluk tubuh yang profesional, yakin dan sopan, dengan tangan kelihatan natural serta postur tegak."
+  };
+  return poses[controls.pose.value];
+}
+
 function generatePrompt() {
   let nametag = controls.nametagName.value.trim() || controls.teacherName.value.trim() || "NAMA GURU";
   if (controls.uppercaseName.checked) nametag = nametag.toLocaleUpperCase("ms-MY");
   const style = controls.imageStyle.value;
   $("#finalPrompt").value = `Edit gambar guru yang dilampirkan menjadi potret studio rasmi sekolah bergaya ${style} yang kemas, elegan dan profesional.
 
-Kekalkan wajah asal, identiti, senyuman, ekspresi dan pose seperti gambar rujukan. Jangan ubah muka secara melampau. Pastikan wajah masih sama dan mudah dikenali.
+Kekalkan wajah asal, identiti, senyuman dan ekspresi seperti gambar rujukan. Jangan ubah muka secara melampau. Pastikan wajah masih sama dan mudah dikenali. ${poseText()}
 
 Jadikan gambar lebih clear, sharp, clean dan studio professional grade. Gunakan latar belakang ${controls.studioBackground.value} yang bersih dengan pencahayaan lembut seperti foto rasmi. Tingkatkan kecerahan sebanyak ${sliders.brightness.value}%, tambah tona wajah sihat dan berseri sebanyak ${sliders.glow.value}%, serta tajamkan butiran mata, wajah dan fabrik sebanyak ${sliders.sharpness.value}%.
 
 Kemas dan sesuaikan blazer supaya nampak lebih fit, kurang bulky, elegan dan profesional. Gunakan blazer warna ${controls.blazerColor.value}. Kecilkan muka dan badan secara natural sekitar ${sliders.slim.value}% sahaja, tanpa mengubah identiti asal. Tambahkan solekan ringan gaya natural no-makeup makeup look sebanyak ${sliders.makeup.value}%.
 
 ${teacherText()}
+
+${controls.removeGlassesReflection.checked ? "Jika guru memakai cermin mata, buang pantulan cahaya, silau dan glare pada kanta. Kekalkan bentuk bingkai serta rupa mata yang asli, jelas dan realistik." : "Jika guru memakai cermin mata, kekalkan keadaan cermin mata seperti dalam gambar asal."}
 
 Pastikan keseluruhan gambar nampak seperti dirakam menggunakan lensa Sony G Master high precision, ultra HD, tajam, bersih dan premium.
 
