@@ -2,6 +2,8 @@
 
 Aplikasi web statik untuk membantu guru Malaysia membina prompt suntingan foto studio rasmi dalam Bahasa Melayu. Aplikasi ini **tidak menghasilkan gambar**; ia menyediakan prompt yang boleh digunakan bersama gambar asal dalam AI image editor pilihan pengguna.
 
+Gambar yang dipilih hanya dipaparkan sebagai preview. Sebarang tetapan dalam aplikasi tidak mengubah preview tersebut secara automatik.
+
 ## Ciri utama
 
 - Preview gambar secara lokal dalam pelayar
