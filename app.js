@@ -35,7 +35,6 @@ const presets = {
 
 let nameWasEdited = false;
 let imageUrl = "";
-let logoUrl = "";
 
 function updateConditionalFields() {
   const isHijab = controls.teacherType.value === "hijab";
@@ -108,14 +107,6 @@ function removePhoto() {
   $("#previewBox").classList.remove("has-image");
 }
 
-function setSchoolLogo(file) {
-  if (!file || !file.type.startsWith("image/")) return;
-  if (logoUrl) URL.revokeObjectURL(logoUrl);
-  logoUrl = URL.createObjectURL(file);
-  $("#schoolLogoPreview").src = logoUrl;
-  $("#schoolLogoLabel").classList.add("has-logo");
-}
-
 function showToast(message) {
   const toast = $("#toast");
   toast.textContent = message;
@@ -124,7 +115,6 @@ function showToast(message) {
 }
 
 $("#photoInput").addEventListener("change", (event) => setPhoto(event.target.files[0]));
-$("#schoolLogoInput").addEventListener("change", (event) => setSchoolLogo(event.target.files[0]));
 $("#removePhoto").addEventListener("click", removePhoto);
 const dropZone = $("#dropZone");
 ["dragenter", "dragover"].forEach(type => dropZone.addEventListener(type, (event) => {

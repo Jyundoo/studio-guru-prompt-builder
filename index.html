@@ -10,11 +10,9 @@
 <body>
   <header class="hero">
     <div class="hero__inner">
-      <label class="brand-mark" id="schoolLogoLabel" for="schoolLogoInput" title="Klik untuk memilih logo sekolah">
-        <input type="file" id="schoolLogoInput" accept="image/png,image/jpeg,image/webp,image/svg+xml">
-        <span id="schoolLogoPlaceholder">LOGO<br>SEKOLAH</span>
-        <img id="schoolLogoPreview" alt="Logo sekolah">
-      </label>
+      <div class="brand-mark">
+        <img src="assets/logo-sekolah.png" alt="Logo SK Putrajaya Presint 11(3)">
+      </div>
       <div>
         <p class="eyebrow">ALAT DIGITAL PENDIDIK</p>
         <h1>Studio Guru Prompt Builder</h1>
@@ -40,7 +38,6 @@
     <form id="builderForm">
       <section class="card">
         <div class="section-heading"><span>1</span><div><h2>Upload Gambar</h2><p>Pilih gambar potret guru sebagai rujukan.</p></div></div>
-        <p class="logo-tip"><strong>Logo sekolah:</strong> Klik ruang “Logo Sekolah” di bahagian atas halaman untuk memaparkan logo sekolah anda. Logo juga hanya disimpan sementara dalam browser.</p>
         <div class="upload-layout">
           <label class="drop-zone" id="dropZone" for="photoInput">
             <input type="file" id="photoInput" accept="image/*">
@@ -126,7 +123,13 @@
     </form>
   </main>
 
-  <footer>Dibina untuk kegunaan pendidik Malaysia · Berfungsi sepenuhnya dalam pelayar anda</footer>
+  <footer>
+    <div class="footer-note">Dibina untuk kegunaan pendidik Malaysia · Berfungsi sepenuhnya dalam pelayar anda</div>
+    <div class="credit-footer">
+      <div class="credit-text">Sistem ini dibangunkan oleh</div>
+      <div class="credit-bold">Cikgu Jun | UNIT ICT &amp; DELIMA SK PUTRAJAYA PRESINT 11(3)</div>
+    </div>
+  </footer>
   <div class="toast" id="toast" role="status" aria-live="polite">Prompt berjaya disalin.</div>
   <script src="app.js"></script>
 </body>

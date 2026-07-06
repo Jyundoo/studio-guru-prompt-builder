@@ -7,7 +7,7 @@ Gambar yang dipilih hanya dipaparkan sebagai preview. Sebarang tetapan dalam apl
 ## Ciri utama
 
 - Preview gambar secara lokal dalam pelayar
-- Paparan logo sekolah pilihan pengguna secara lokal
+- Logo rasmi SK Putrajaya Presint 11(3)
 - Tetapan guru, pakaian, latar studio dan gaya
 - Pilihan pose, warna profesional dan pembuangan pantulan cermin mata
 - Kawalan peratus serta empat preset segera
@@ -19,7 +19,6 @@ Gambar yang dipilih hanya dipaparkan sebagai preview. Sebarang tetapan dalam apl
 ## Privasi
 
 Gambar tidak dimuat naik, dihantar atau disimpan. Preview menggunakan `URL.createObjectURL()` dan kekal dalam sesi pelayar pengguna sahaja.
-Perkara yang sama terpakai pada logo sekolah yang dipilih.
 
 ## Cara menggunakan
 
