@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bina prompt foto studio rasmi guru secara lokal dan selamat.">
+  <title>Studio Guru Prompt Builder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="brand-mark" aria-hidden="true">SG</div>
+      <div>
+        <p class="eyebrow">ALAT DIGITAL PENDIDIK</p>
+        <h1>Studio Guru Prompt Builder</h1>
+        <p class="subtitle">Bina prompt foto studio rasmi guru dengan mudah.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="privacy-banner">
+      <span aria-hidden="true">🔒</span>
+      <div><strong>Privasi terjamin</strong><br>Gambar yang dimuat naik hanya digunakan untuk paparan preview dalam browser. Sistem ini tidak menyimpan gambar.</div>
+    </div>
+
+    <form id="builderForm">
+      <section class="card">
+        <div class="section-heading"><span>1</span><div><h2>Upload Gambar</h2><p>Pilih gambar potret guru sebagai rujukan.</p></div></div>
+        <div class="upload-layout">
+          <label class="drop-zone" id="dropZone" for="photoInput">
+            <input type="file" id="photoInput" accept="image/*">
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <strong>Seret gambar ke sini</strong>
+            <span>atau klik untuk memilih gambar</span>
+            <small>JPG, PNG atau WEBP</small>
+          </label>
+          <div class="preview-box" id="previewBox">
+            <span id="previewPlaceholder">Preview gambar akan dipaparkan di sini</span>
+            <img id="imagePreview" alt="Preview gambar guru">
+            <button type="button" class="remove-photo" id="removePhoto">Buang gambar</button>
+          </div>
+        </div>
+        <p class="local-note">Gambar hanya dipaparkan dalam pelayar anda. Tidak dimuat naik ke mana-mana server.</p>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><span>2</span><div><h2>Maklumat Guru</h2><p>Masukkan butiran untuk potret rasmi.</p></div></div>
+        <div class="form-grid">
+          <label>Nama Guru<input id="teacherName" type="text" placeholder="Contoh: Nur Aisyah"></label>
+          <label>Jenis Guru<select id="teacherType">
+            <option value="hijab">Guru Perempuan Bertudung</option>
+            <option value="female">Guru Perempuan Tidak Bertudung</option>
+            <option value="male">Guru Lelaki</option>
+          </select></label>
+          <label>Nama pada Nametag<input id="nametagName" type="text" placeholder="Diisi daripada nama guru"></label>
+          <label class="checkbox-label"><input id="uppercaseName" type="checkbox" checked><span>Jadikan nama pada nametag huruf besar</span></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><span>3</span><div><h2>Tetapan Gaya Studio</h2><p>Pilih penampilan dan suasana studio.</p></div></div>
+        <div class="form-grid">
+          <label id="hijabColorField">Warna tudung<select id="hijabColor">
+            <option>Auto</option><option>Kelabu Gelap</option><option>Navy</option><option>Beige Formal</option>
+            <option>Hitam</option><option>Soft Pastel Formal</option><option>Maroon Gelap</option><option>Coklat Korporat</option>
+          </select></label>
+          <label id="hairStyleField" hidden>Gaya rambut<select id="hairStyle">
+            <option>Kemas profesional</option><option>Kekal seperti gambar asal</option>
+          </select></label>
+          <label>Warna blazer<select id="blazerColor">
+            <option>Navy</option><option>Dark Grey</option><option>Black</option><option>Charcoal</option><option>Corporate Blue</option>
+          </select></label>
+          <label>Latar studio<select id="studioBackground">
+            <option>Putih Studio Bersih</option><option>Kelabu Studio Neutral</option><option>Biru Korporat Lembut</option>
+          </select></label>
+          <label>Gaya gambar<select id="imageStyle">
+            <option>Rasmi Sekolah</option><option>Korporat Premium</option><option>Natural Kemas</option><option>Profil DELIMa / Website Sekolah</option>
+          </select></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><span>4</span><div><h2>Kawalan Peratus</h2><p>Laraskan tahap kemasan dengan tepat.</p></div></div>
+        <div class="presets" aria-label="Preset gaya">
+          <button type="button" data-preset="school">Rasmi Sekolah</button>
+          <button type="button" data-preset="premium">Korporat Premium</button>
+          <button type="button" data-preset="natural">Kekal Natural</button>
+          <button type="button" data-preset="clear">Ultra Clear</button>
+        </div>
+        <div class="sliders" id="sliders"></div>
+      </section>
+
+      <section class="card prompt-card">
+        <div class="section-heading"><span>5</span><div><h2>Prompt Akhir</h2><p>Dikemas kini secara automatik berdasarkan pilihan anda.</p></div></div>
+        <textarea id="finalPrompt" readonly aria-label="Prompt akhir"></textarea>
+        <p class="prompt-note">Gunakan prompt ini bersama gambar asal di mana-mana AI image editor pilihan anda.</p>
+        <div class="actions">
+          <button type="button" class="primary" id="copyPrompt">Salin Prompt</button>
+          <button type="button" id="downloadPrompt">Muat Turun .txt</button>
+          <button type="button" id="selectAll">Pilih Semua</button>
+          <button type="reset" class="danger">Reset</button>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer>Dibina untuk kegunaan pendidik Malaysia · Berfungsi sepenuhnya dalam pelayar anda</footer>
+  <div class="toast" id="toast" role="status" aria-live="polite">Prompt berjaya disalin.</div>
+  <script src="app.js"></script>
+</body>
+</html>
