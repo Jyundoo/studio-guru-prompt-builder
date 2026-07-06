@@ -10,7 +10,11 @@
 <body>
   <header class="hero">
     <div class="hero__inner">
-      <div class="brand-mark" aria-hidden="true">SG</div>
+      <label class="brand-mark" id="schoolLogoLabel" for="schoolLogoInput" title="Klik untuk memilih logo sekolah">
+        <input type="file" id="schoolLogoInput" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+        <span id="schoolLogoPlaceholder">LOGO<br>SEKOLAH</span>
+        <img id="schoolLogoPreview" alt="Logo sekolah">
+      </label>
       <div>
         <p class="eyebrow">ALAT DIGITAL PENDIDIK</p>
         <h1>Studio Guru Prompt Builder</h1>
@@ -25,6 +29,7 @@
       <div>
         <strong>Penting: Aplikasi ini hanya menjana prompt</strong>
         <p>Gambar yang dimuat naik adalah untuk preview sahaja dan <strong>tidak akan berubah secara automatik</strong>. Selepas prompt siap, gunakan prompt bersama gambar asal dalam AI image editor pilihan anda untuk menghasilkan gambar baharu.</p>
+        <p><strong>Identiti wajah asal mesti dikekalkan.</strong> AI image editor tidak sepatutnya menukar rupa, struktur muka atau menjadikan guru kelihatan seperti individu lain.</p>
       </div>
     </div>
     <div class="privacy-banner">
@@ -35,6 +40,7 @@
     <form id="builderForm">
       <section class="card">
         <div class="section-heading"><span>1</span><div><h2>Upload Gambar</h2><p>Pilih gambar potret guru sebagai rujukan.</p></div></div>
+        <p class="logo-tip"><strong>Logo sekolah:</strong> Klik ruang “Logo Sekolah” di bahagian atas halaman untuk memaparkan logo sekolah anda. Logo juga hanya disimpan sementara dalam browser.</p>
         <div class="upload-layout">
           <label class="drop-zone" id="dropZone" for="photoInput">
             <input type="file" id="photoInput" accept="image/*">

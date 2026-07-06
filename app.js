@@ -35,6 +35,7 @@ const presets = {
 
 let nameWasEdited = false;
 let imageUrl = "";
+let logoUrl = "";
 
 function updateConditionalFields() {
   const isHijab = controls.teacherType.value === "hijab";
@@ -68,9 +69,9 @@ function generatePrompt() {
   const style = controls.imageStyle.value;
   $("#finalPrompt").value = `Edit gambar guru yang dilampirkan menjadi potret studio rasmi sekolah bergaya ${style} yang kemas, elegan dan profesional.
 
-Kekalkan wajah asal, identiti, senyuman dan ekspresi seperti gambar rujukan. Jangan ubah muka secara melampau. Pastikan wajah masih sama dan mudah dikenali. ${poseText()}
+WAJIB kekalkan wajah asal dan identiti sebenar guru tepat seperti gambar rujukan. Jangan ubah struktur atau geometri muka, bentuk dan jarak mata, kening, hidung, bibir, gigi, pipi, rahang, dagu, telinga, warna kulit, umur, tanda lahir atau ciri unik wajah. Jangan menggantikan wajah, mencipta wajah baharu, mencampurkan wajah dengan individu lain atau menjadikan guru kelihatan seperti orang lain. Kekalkan senyuman dan ekspresi asal. Semua kemasan mestilah minimum dan tidak menjejaskan pengecaman identiti. ${poseText()}
 
-Jadikan gambar lebih clear, sharp, clean dan studio professional grade. Gunakan latar belakang ${controls.studioBackground.value} yang bersih dengan pencahayaan lembut seperti foto rasmi. Tingkatkan kecerahan sebanyak ${sliders.brightness.value}%, tambah tona wajah sihat dan berseri sebanyak ${sliders.glow.value}%, serta tajamkan butiran mata, wajah dan fabrik sebanyak ${sliders.sharpness.value}%.
+Jadikan gambar lebih clear, sharp, clean dan studio professional grade tanpa mengubah rupa wajah. Gunakan latar belakang ${controls.studioBackground.value} yang bersih dengan pencahayaan lembut seperti foto rasmi. Tingkatkan kecerahan sebanyak ${sliders.brightness.value}%, tambah tona wajah sihat dan berseri sebanyak ${sliders.glow.value}%, serta tajamkan butiran mata, wajah dan fabrik sebanyak ${sliders.sharpness.value}%. Elakkan beauty filter berlebihan, face reshaping, skin whitening, pertukaran tona kulit dan kesan wajah plastik.
 
 Kemas dan sesuaikan blazer supaya nampak lebih fit, kurang bulky, elegan dan profesional. Gunakan blazer warna ${controls.blazerColor.value}. Kecilkan muka dan badan secara natural sekitar ${sliders.slim.value}% sahaja, tanpa mengubah identiti asal. Tambahkan solekan ringan gaya natural no-makeup makeup look sebanyak ${sliders.makeup.value}%.
 
@@ -107,6 +108,14 @@ function removePhoto() {
   $("#previewBox").classList.remove("has-image");
 }
 
+function setSchoolLogo(file) {
+  if (!file || !file.type.startsWith("image/")) return;
+  if (logoUrl) URL.revokeObjectURL(logoUrl);
+  logoUrl = URL.createObjectURL(file);
+  $("#schoolLogoPreview").src = logoUrl;
+  $("#schoolLogoLabel").classList.add("has-logo");
+}
+
 function showToast(message) {
   const toast = $("#toast");
   toast.textContent = message;
@@ -115,6 +124,7 @@ function showToast(message) {
 }
 
 $("#photoInput").addEventListener("change", (event) => setPhoto(event.target.files[0]));
+$("#schoolLogoInput").addEventListener("change", (event) => setSchoolLogo(event.target.files[0]));
 $("#removePhoto").addEventListener("click", removePhoto);
 const dropZone = $("#dropZone");
 ["dragenter", "dragover"].forEach(type => dropZone.addEventListener(type, (event) => {
