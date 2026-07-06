@@ -6,6 +6,7 @@ Aplikasi web statik untuk membantu guru Malaysia membina prompt suntingan foto s
 
 - Preview gambar secara lokal dalam pelayar
 - Tetapan guru, pakaian, latar studio dan gaya
+- Pilihan pose, warna profesional dan pembuangan pantulan cermin mata
 - Kawalan peratus serta empat preset segera
 - Prompt dikemas kini secara langsung
 - Salin, pilih semua, muat turun `.txt` dan reset
