@@ -152,7 +152,7 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .danger { color: #9b2c2c; }
 .stats-card {
   margin: 0 0 20px;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid #e5ebf1;
   border-radius: 16px;
   background: linear-gradient(135deg, #fff, #fbfdff 58%, #f6f9fc);
@@ -161,17 +161,17 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin: 0 0 10px;
+  gap: 7px;
+  margin: 0 0 8px;
 }
 .stat-tile {
-  padding: 11px 10px 10px;
+  padding: 10px 9px 9px;
   border: 1px solid #e4ebf2;
   border-radius: 12px;
   background: white;
 }
 .stat-label { color: var(--muted); font-size: 12px; line-height: 1.1; }
-.stat-value { margin-top: 6px; color: var(--navy); font-size: 22px; font-weight: 800; line-height: 1; }
+.stat-value { margin-top: 5px; color: var(--navy); font-size: 20px; font-weight: 800; line-height: 1; }
 .stat-note { margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.2; }
 .reaction-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .reaction-btn {
@@ -189,11 +189,10 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 }
 .reaction-btn.like.active { border-color: var(--rose); background: #fff0f3; color: var(--rose); }
 .stars {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: inline-grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
-  flex: 1 1 320px;
-  min-width: min(100%, 320px);
+  width: min(100%, 280px);
 }
 .star-btn {
   width: 100%;
@@ -227,8 +226,8 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .stats-card { padding: 12px; }
   .stat-value { font-size: 20px; }
   .reaction-row { align-items: stretch; }
-  .reaction-row .like { width: 100%; justify-content: center; }
-  .stars { width: 100%; min-width: 0; }
+  .reaction-row .like { width: auto; justify-content: center; }
+  .stars { width: min(100%, 240px); min-width: 0; }
   .drop-zone, .preview-box { min-height: 220px; }
   .checkbox-label { align-self: auto; }
 }
@@ -240,7 +239,7 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .actions button { flex: 1 1 calc(50% - 10px); }
   .stats-grid { grid-template-columns: 1fr; }
   .stat-tile { padding: 10px; }
-  .reaction-row .like { width: 100%; }
-  .stars { grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
-  .star-btn { min-width: 0; }
+  .reaction-row .like { width: auto; }
+  .stars { width: min(100%, 220px); }
+  .star-btn { min-width: 0; padding: 7px 8px; }
 }
