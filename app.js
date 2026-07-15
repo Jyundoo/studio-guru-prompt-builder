@@ -158,7 +158,7 @@ function updateStatsView() {
   $("#activeStars").textContent = String(starState || 0);
 
   $("#likeButton").classList.toggle("active", Boolean(likeState));
-  $("#likeButton").textContent = likeState ? "👍 Disukai" : "👍 Suka";
+  $("#likeButton").textContent = "👍";
 
   document.querySelectorAll("[data-star]").forEach((button) => {
     const star = Number(button.dataset.star);

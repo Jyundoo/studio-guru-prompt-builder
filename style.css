@@ -181,6 +181,7 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
   min-height: 40px;
   padding: 8px 11px;
 }
+.reaction-row .like { min-width: 56px; justify-content: center; padding-inline: 0; }
 .reaction-btn.active {
   border-color: var(--blue);
   background: var(--blue-light);
@@ -188,12 +189,15 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 }
 .reaction-btn.like.active { border-color: var(--rose); background: #fff0f3; color: var(--rose); }
 .stars {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px;
-  flex-wrap: wrap;
+  flex: 1 1 320px;
+  min-width: min(100%, 320px);
 }
 .star-btn {
-  min-width: 42px;
+  width: 100%;
+  min-width: 0;
   padding: 8px 10px;
   border-color: #e4ebf2;
   background: white;
@@ -224,6 +228,7 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .stat-value { font-size: 20px; }
   .reaction-row { align-items: stretch; }
   .reaction-row .like { width: 100%; justify-content: center; }
+  .stars { width: 100%; min-width: 0; }
   .drop-zone, .preview-box { min-height: 220px; }
   .checkbox-label { align-self: auto; }
 }
@@ -235,7 +240,7 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .actions button { flex: 1 1 calc(50% - 10px); }
   .stats-grid { grid-template-columns: 1fr; }
   .stat-tile { padding: 10px; }
-  .reaction-row .like, .reaction-row .star-btn { width: 100%; justify-content: center; }
-  .stars { width: 100%; }
-  .star-btn { flex: 1 1 calc(33.333% - 6px); min-width: 0; }
+  .reaction-row .like { width: 100%; }
+  .stars { grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
+  .star-btn { min-width: 0; }
 }
