@@ -14,7 +14,7 @@ Gambar yang dipilih hanya dipaparkan sebagai preview. Sebarang tetapan dalam apl
 - Prompt dikemas kini secara langsung
 - Salin, pilih semua, muat turun `.txt` dan reset
 - Responsif untuk desktop, tablet dan telefon
-- Thumbnail perkongsian untuk WhatsApp, Telegram dan media sosial
+- Thumbnail perkongsian 1200×630 untuk WhatsApp, Telegram, Facebook, Threads, X dan media sosial lain
 - Tiada API, backend, pangkalan data, akaun atau storan awan
 
 ## Privasi
