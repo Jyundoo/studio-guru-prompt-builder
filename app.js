@@ -154,7 +154,7 @@ function updateStatsView() {
   $("#promptCount").textContent = String(promptCount);
   $("#likeCount").textContent = String(likeCount);
   $("#ratingAverage").textContent = ratingAverage.toFixed(1);
-  $("#ratingCountLabel").textContent = `${ratingCount} ulasan`;
+  $("#ratingCountLabel").textContent = String(ratingCount);
   $("#activeStars").textContent = String(starState || 0);
 
   $("#likeButton").classList.toggle("active", Boolean(likeState));

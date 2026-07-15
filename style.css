@@ -152,7 +152,7 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .danger { color: #9b2c2c; }
 .stats-card {
   margin: 0 0 20px;
-  padding: 10px;
+  padding: 9px;
   border: 1px solid #e5ebf1;
   border-radius: 16px;
   background: linear-gradient(135deg, #fff, #fbfdff 58%, #f6f9fc);
@@ -162,26 +162,26 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
 }
 .stat-tile {
-  padding: 9px 8px 8px;
+  padding: 7px 7px 6px;
   border: 1px solid #e4ebf2;
-  border-radius: 12px;
+  border-radius: 10px;
   background: white;
 }
-.stat-label { color: var(--muted); font-size: 12px; line-height: 1.1; }
-.stat-value { margin-top: 4px; color: var(--navy); font-size: 18px; font-weight: 800; line-height: 1; }
-.stat-note { margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.2; }
+.stat-label { color: var(--muted); font-size: 11px; line-height: 1; }
+.stat-value { margin-top: 3px; color: var(--navy); font-size: 16px; font-weight: 800; line-height: 1; }
+.stat-note { margin-top: 2px; color: var(--muted); font-size: 10px; line-height: 1.15; }
 .reaction-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .reaction-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 40px;
-  padding: 8px 11px;
+  min-height: 36px;
+  padding: 7px 9px;
 }
-.reaction-row .like { min-width: 56px; justify-content: center; padding-inline: 0; }
+.reaction-row .like { min-width: 46px; justify-content: center; padding-inline: 0; }
 .reaction-btn.active {
   border-color: var(--blue);
   background: var(--blue-light);
@@ -197,8 +197,8 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .star-btn {
   width: 100%;
   min-width: 0;
-  padding: 7px 8px;
-  font-size: 12px;
+  padding: 6px 7px;
+  font-size: 11px;
   border-color: #e4ebf2;
   background: white;
 }
@@ -224,8 +224,8 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .brand-mark { width: 56px; height: 56px; border-radius: 14px; }
   .upload-layout, .form-grid, .sliders { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stats-card { padding: 9px; }
-  .stat-value { font-size: 18px; }
+  .stats-card { padding: 8px; }
+  .stat-value { font-size: 15px; }
   .reaction-row { align-items: stretch; }
   .reaction-row .like { width: auto; justify-content: center; }
   .stars { width: auto; min-width: 0; }
@@ -239,8 +239,8 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .card { border-radius: 14px; padding: 18px; }
   .actions button { flex: 1 1 calc(50% - 10px); }
   .stats-grid { grid-template-columns: 1fr; }
-  .stat-tile { padding: 9px; }
+  .stat-tile { padding: 8px; }
   .reaction-row .like { width: auto; }
   .stars { width: auto; }
-  .star-btn { min-width: 0; padding: 7px 7px; font-size: 12px; }
+  .star-btn { min-width: 0; padding: 6px 6px; font-size: 11px; }
 }
