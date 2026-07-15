@@ -2,6 +2,8 @@
   --navy: #102a43;
   --blue: #2367a3;
   --blue-light: #eaf3fb;
+  --rose: #c44b62;
+  --gold-soft: #f2d69a;
   --gold: #c69a45;
   --ink: #243b53;
   --muted: #627d98;
@@ -148,6 +150,58 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .primary { color: white; border-color: var(--blue); background: var(--blue); }
 .primary:hover { color: white; background: #195786; }
 .danger { color: #9b2c2c; }
+.stats-card {
+  margin-bottom: 22px;
+  padding: 22px 24px;
+  border: 1px solid #e5ebf1;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff, #fbfdff 58%, #f6f9fc);
+  box-shadow: var(--shadow);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0 16px;
+}
+.stat-tile {
+  padding: 16px;
+  border: 1px solid #e4ebf2;
+  border-radius: 14px;
+  background: white;
+}
+.stat-label { color: var(--muted); font-size: 13px; }
+.stat-value { margin-top: 6px; color: var(--navy); font-size: 28px; font-weight: 800; line-height: 1; }
+.stat-note { margin-top: 6px; color: var(--muted); font-size: 12px; }
+.reaction-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.reaction-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.reaction-btn.active {
+  border-color: var(--blue);
+  background: var(--blue-light);
+  color: var(--blue);
+}
+.reaction-btn.like.active { border-color: var(--rose); background: #fff0f3; color: var(--rose); }
+.stars {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.star-btn {
+  min-width: 44px;
+  padding: 10px 12px;
+  border-color: #e4ebf2;
+  background: white;
+}
+.star-btn.active {
+  border-color: #c6902b;
+  background: #fff8e8;
+  color: #8a5f00;
+}
 footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-align: center; font-size: 13px; }
 .footer-note { margin-bottom: 12px; }
 .credit-footer { padding-top: 12px; border-top: 1px solid rgba(203, 217, 229, .18); }
@@ -164,6 +218,7 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .hero__inner { padding: 30px 0; }
   .brand-mark { width: 56px; height: 56px; border-radius: 14px; }
   .upload-layout, .form-grid, .sliders { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .drop-zone, .preview-box { min-height: 220px; }
   .checkbox-label { align-self: auto; }
 }
@@ -173,4 +228,5 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .shell { width: min(100% - 20px, 1120px); }
   .card { border-radius: 14px; padding: 18px; }
   .actions button { flex: 1 1 calc(50% - 10px); }
+  .stats-grid { grid-template-columns: 1fr; }
 }

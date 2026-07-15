@@ -1,12 +1,35 @@
 "use strict";
 
 const $ = (selector) => document.querySelector(selector);
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDYSa1SGhrsoD6z464EriNGhIcLrqO6AFc",
+  authDomain: "studio-guru-prompt-builder.firebaseapp.com",
+  projectId: "studio-guru-prompt-builder",
+  storageBucket: "studio-guru-prompt-builder.firebasestorage.app",
+  messagingSenderId: "785011285419",
+  appId: "1:785011285419:web:c4f31f6f3fb196e98d86ee"
+};
+
+const LOCAL_KEYS = {
+  like: "sgpb-like",
+  stars: "sgpb-stars",
+  statsCache: "sgpb-stats-cache"
+};
+
 const form = $("#builderForm");
 const controls = {
-  teacherName: $("#teacherName"), teacherType: $("#teacherType"), nametagName: $("#nametagName"),
-  uppercaseName: $("#uppercaseName"), hijabColor: $("#hijabColor"), hairStyle: $("#hairStyle"),
-  blazerColor: $("#blazerColor"), studioBackground: $("#studioBackground"), imageStyle: $("#imageStyle"),
-  pose: $("#pose"), removeGlassesReflection: $("#removeGlassesReflection")
+  teacherName: $("#teacherName"),
+  teacherType: $("#teacherType"),
+  nametagName: $("#nametagName"),
+  uppercaseName: $("#uppercaseName"),
+  hijabColor: $("#hijabColor"),
+  hairStyle: $("#hairStyle"),
+  blazerColor: $("#blazerColor"),
+  studioBackground: $("#studioBackground"),
+  imageStyle: $("#imageStyle"),
+  pose: $("#pose"),
+  removeGlassesReflection: $("#removeGlassesReflection")
 };
 
 const sliderConfig = [
@@ -27,14 +50,39 @@ $("#sliders").innerHTML = sliderConfig.map(([id, label, min, max, value, help]) 
 
 const sliders = Object.fromEntries(sliderConfig.map(([id]) => [id, $(`#${id}`)]));
 const presets = {
-  school:  { slim: 10, brightness: 10, glow: 8, sharpness: 20, makeup: 8, formality: 90, background: "Putih Studio Bersih", blazer: "Navy", style: "Rasmi Sekolah" },
+  school: { slim: 10, brightness: 10, glow: 8, sharpness: 20, makeup: 8, formality: 90, background: "Putih Studio Bersih", blazer: "Navy", style: "Rasmi Sekolah" },
   premium: { slim: 15, brightness: 12, glow: 10, sharpness: 25, makeup: 10, formality: 100, background: "Kelabu Studio Neutral", blazer: "Dark Grey", style: "Korporat Premium" },
   natural: { slim: 5, brightness: 5, glow: 5, sharpness: 15, makeup: 5, formality: 80, background: "Putih Studio Bersih", blazer: "Navy", style: "Natural Kemas" },
-  clear:   { slim: 10, brightness: 12, glow: 8, sharpness: 30, makeup: 8, formality: 95, background: "Putih Studio Bersih", blazer: "Navy", style: "Rasmi Sekolah" }
+  clear: { slim: 10, brightness: 12, glow: 8, sharpness: 30, makeup: 8, formality: 95, background: "Putih Studio Bersih", blazer: "Navy", style: "Rasmi Sekolah" }
 };
 
 let nameWasEdited = false;
 let imageUrl = "";
+let app = null;
+let db = null;
+let statsCache = readJson(LOCAL_KEYS.statsCache, {
+  promptCount: 0,
+  likeCount: 0,
+  ratingSum: 0,
+  ratingCount: 0
+});
+let likeState = readJson(LOCAL_KEYS.like, false);
+let starState = readJson(LOCAL_KEYS.stars, 0);
+
+function readJson(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw == null ? fallback : JSON.parse(raw);
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJson(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {}
+}
 
 function updateConditionalFields() {
   const isHijab = controls.teacherType.value === "hijab";
@@ -62,11 +110,11 @@ function poseText() {
   return poses[controls.pose.value];
 }
 
-function generatePrompt() {
+function buildPrompt() {
   let nametag = controls.nametagName.value.trim() || controls.teacherName.value.trim() || "NAMA GURU";
   if (controls.uppercaseName.checked) nametag = nametag.toLocaleUpperCase("ms-MY");
   const style = controls.imageStyle.value;
-  $("#finalPrompt").value = `Edit gambar guru yang dilampirkan menjadi potret studio rasmi sekolah bergaya ${style} yang kemas, elegan dan profesional.
+  return `Edit gambar guru yang dilampirkan menjadi potret studio rasmi sekolah bergaya ${style} yang kemas, elegan dan profesional.
 
 WAJIB kekalkan wajah asal dan identiti sebenar guru tepat seperti gambar rujukan. Jangan ubah struktur atau geometri muka, bentuk dan jarak mata, kening, hidung, bibir, gigi, pipi, rahang, dagu, telinga, warna kulit, umur, tanda lahir atau ciri unik wajah. Jangan menggantikan wajah, mencipta wajah baharu, mencampurkan wajah dengan individu lain atau menjadikan guru kelihatan seperti orang lain. Kekalkan senyuman dan ekspresi asal. Semua kemasan mestilah minimum dan tidak menjejaskan pengecaman identiti. ${poseText()}
 
@@ -85,10 +133,86 @@ Tambahkan nametag formal standard kakitangan kerajaan pada blazer: bahagian kiri
 Tahap formaliti keseluruhan gambar ialah ${sliders.formality.value}%. Hasil akhir mestilah realistik, rasmi, elegan dan sesuai digunakan sebagai foto profil rasmi sekolah.`;
 }
 
+function renderPrompt() {
+  $("#finalPrompt").value = buildPrompt();
+}
+
+function showToast(message) {
+  const toast = $("#toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  window.setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+function updateStatsView() {
+  const promptCount = Number(statsCache.promptCount || 0);
+  const likeCount = Number(statsCache.likeCount || 0);
+  const ratingSum = Number(statsCache.ratingSum || 0);
+  const ratingCount = Number(statsCache.ratingCount || 0);
+  const ratingAverage = ratingCount ? (ratingSum / ratingCount) : 0;
+
+  $("#promptCount").textContent = String(promptCount);
+  $("#likeCount").textContent = String(likeCount);
+  $("#ratingAverage").textContent = ratingAverage.toFixed(1);
+  $("#ratingCountLabel").textContent = `${ratingCount} penilaian`;
+  $("#activeStars").textContent = String(starState || 0);
+
+  $("#likeButton").classList.toggle("active", Boolean(likeState));
+  $("#likeButton").textContent = likeState ? "👍 Disukai" : "👍 Suka";
+
+  document.querySelectorAll("[data-star]").forEach((button) => {
+    const star = Number(button.dataset.star);
+    button.classList.toggle("active", starState >= star);
+  });
+}
+
+async function syncStats(patch) {
+  statsCache = { ...statsCache, ...patch };
+  writeJson(LOCAL_KEYS.statsCache, statsCache);
+  updateStatsView();
+
+  if (!db) return;
+  try {
+    const ref = db.collection("stats").doc("community");
+    await ref.set({
+      promptCount: firebase.firestore.FieldValue.increment(patch.promptCount ?? 0),
+      likeCount: firebase.firestore.FieldValue.increment(patch.likeCount ?? 0),
+      ratingSum: firebase.firestore.FieldValue.increment(patch.ratingSum ?? 0),
+      ratingCount: firebase.firestore.FieldValue.increment(patch.ratingCount ?? 0),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+  } catch (error) {
+    console.warn("Firestore sync gagal:", error);
+    showToast("Statistik disimpan sementara pada browser ini.");
+  }
+}
+
+function applyLocalStatsFromFirestore(snapshot) {
+  if (!snapshot.exists) return;
+  const data = snapshot.data();
+  statsCache = {
+    promptCount: Number(data.promptCount || 0),
+    likeCount: Number(data.likeCount || 0),
+    ratingSum: Number(data.ratingSum || 0),
+    ratingCount: Number(data.ratingCount || 0)
+  };
+  writeJson(LOCAL_KEYS.statsCache, statsCache);
+  updateStatsView();
+}
+
+async function initFirebase() {
+  if (!window.firebase?.initializeApp) return;
+  app = firebase.initializeApp(firebaseConfig);
+  db = firebase.firestore(app);
+  db.collection("stats").doc("community").onSnapshot(applyLocalStatsFromFirestore, (error) => {
+    console.warn("Firestore listen gagal:", error);
+  });
+}
+
 function updateAll() {
   updateConditionalFields();
   sliderConfig.forEach(([id]) => $(`#${id}Value`).textContent = `${sliders[id].value}%`);
-  generatePrompt();
+  renderPrompt();
 }
 
 function setPhoto(file) {
@@ -107,21 +231,16 @@ function removePhoto() {
   $("#previewBox").classList.remove("has-image");
 }
 
-function showToast(message) {
-  const toast = $("#toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  window.setTimeout(() => toast.classList.remove("show"), 2200);
-}
-
 $("#photoInput").addEventListener("change", (event) => setPhoto(event.target.files[0]));
 $("#removePhoto").addEventListener("click", removePhoto);
 const dropZone = $("#dropZone");
-["dragenter", "dragover"].forEach(type => dropZone.addEventListener(type, (event) => {
-  event.preventDefault(); dropZone.classList.add("dragover");
+["dragenter", "dragover"].forEach((type) => dropZone.addEventListener(type, (event) => {
+  event.preventDefault();
+  dropZone.classList.add("dragover");
 }));
-["dragleave", "drop"].forEach(type => dropZone.addEventListener(type, (event) => {
-  event.preventDefault(); dropZone.classList.remove("dragover");
+["dragleave", "drop"].forEach((type) => dropZone.addEventListener(type, (event) => {
+  event.preventDefault();
+  dropZone.classList.remove("dragover");
 }));
 dropZone.addEventListener("drop", (event) => setPhoto(event.dataTransfer.files[0]));
 
@@ -129,22 +248,31 @@ controls.teacherName.addEventListener("input", () => {
   if (!nameWasEdited) controls.nametagName.value = controls.teacherName.value;
   updateAll();
 });
-controls.nametagName.addEventListener("input", () => { nameWasEdited = true; updateAll(); });
+controls.nametagName.addEventListener("input", () => {
+  nameWasEdited = true;
+  updateAll();
+});
 form.addEventListener("input", (event) => {
   if (event.target !== controls.teacherName && event.target !== controls.nametagName) updateAll();
 });
 form.addEventListener("change", updateAll);
 
-document.querySelectorAll("[data-preset]").forEach(button => button.addEventListener("click", () => {
+document.querySelectorAll("[data-preset]").forEach((button) => button.addEventListener("click", () => {
   const preset = presets[button.dataset.preset];
-  Object.keys(sliders).forEach(id => sliders[id].value = preset[id]);
+  Object.keys(sliders).forEach((id) => sliders[id].value = preset[id]);
   controls.studioBackground.value = preset.background;
   controls.blazerColor.value = preset.blazer;
   controls.imageStyle.value = preset.style;
-  document.querySelectorAll("[data-preset]").forEach(item => item.classList.remove("active"));
+  document.querySelectorAll("[data-preset]").forEach((item) => item.classList.remove("active"));
   button.classList.add("active");
   updateAll();
 }));
+
+$("#generatePrompt").addEventListener("click", async () => {
+  renderPrompt();
+  await syncStats({ promptCount: 1 });
+  showToast("Prompt dijana dan kiraan dikemas kini.");
+});
 
 $("#copyPrompt").addEventListener("click", async () => {
   try {
@@ -174,11 +302,34 @@ $("#selectAll").addEventListener("click", () => {
   $("#finalPrompt").select();
 });
 
+$("#likeButton").addEventListener("click", async () => {
+  likeState = !likeState;
+  writeJson(LOCAL_KEYS.like, likeState);
+  await syncStats({ likeCount: likeState ? 1 : -1 });
+  showToast(likeState ? "Terima kasih atas like anda." : "Like dibatalkan.");
+});
+
+document.querySelectorAll("[data-star]").forEach((button) => button.addEventListener("click", async () => {
+  const selected = Number(button.dataset.star);
+  const previous = Number(starState || 0);
+  starState = selected;
+  writeJson(LOCAL_KEYS.stars, starState);
+  await syncStats({
+    ratingSum: previous ? selected - previous : selected,
+    ratingCount: previous ? 0 : 1
+  });
+  showToast(`Rating ${selected} bintang disimpan.`);
+}));
+
 form.addEventListener("reset", () => window.setTimeout(() => {
   nameWasEdited = false;
   removePhoto();
-  document.querySelectorAll("[data-preset]").forEach(item => item.classList.remove("active"));
+  document.querySelectorAll("[data-preset]").forEach((item) => item.classList.remove("active"));
   updateAll();
 }, 0));
 
-updateAll();
+document.addEventListener("DOMContentLoaded", async () => {
+  updateAll();
+  updateStatsView();
+  await initFirebase();
+});

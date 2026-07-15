@@ -56,6 +56,43 @@
       <div><strong>Privasi terjamin</strong><br>Gambar yang dimuat naik hanya digunakan untuk paparan preview dalam browser. Sistem ini tidak menyimpan gambar.</div>
     </div>
 
+    <section class="stats-card">
+      <div class="section-heading"><span>✓</span><div><h2>Statistik Komuniti</h2><p>Kiraan ini kekal dan dikemas kini melalui Firestore.</p></div></div>
+      <div class="stats-grid" aria-label="Statistik komuniti">
+        <div class="stat-tile">
+          <div class="stat-label">Prompt dijana</div>
+          <div class="stat-value" id="promptCount">0</div>
+          <div class="stat-note">Setiap klik pada jana prompt akan ditambah.</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">Like</div>
+          <div class="stat-value" id="likeCount">0</div>
+          <div class="stat-note">Satu like bagi setiap peranti/pelayar.</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">Rating</div>
+          <div class="stat-value" id="ratingAverage">0.0</div>
+          <div class="stat-note" id="ratingCountLabel">0 penilaian</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">Bintang aktif</div>
+          <div class="stat-value" id="activeStars">0</div>
+          <div class="stat-note">Jumlah bintang yang dipilih pengguna.</div>
+        </div>
+      </div>
+      <div class="reaction-row">
+        <button type="button" class="reaction-btn like" id="likeButton">👍 Suka</button>
+        <div class="stars" role="group" aria-label="Beri rating bintang">
+          <button type="button" class="reaction-btn star-btn" data-star="1">★ 1</button>
+          <button type="button" class="reaction-btn star-btn" data-star="2">★ 2</button>
+          <button type="button" class="reaction-btn star-btn" data-star="3">★ 3</button>
+          <button type="button" class="reaction-btn star-btn" data-star="4">★ 4</button>
+          <button type="button" class="reaction-btn star-btn" data-star="5">★ 5</button>
+        </div>
+        <span class="stat-note">Bintang boleh diubah bila-bila masa.</span>
+      </div>
+    </section>
+
     <form id="builderForm">
       <section class="card">
         <div class="section-heading"><span>1</span><div><h2>Upload Gambar</h2><p>Pilih gambar potret guru sebagai rujukan.</p></div></div>
@@ -132,9 +169,11 @@
 
       <section class="card prompt-card">
         <div class="section-heading"><span>5</span><div><h2>Prompt Akhir</h2><p>Dikemas kini secara automatik berdasarkan pilihan anda.</p></div></div>
+        <p class="prompt-note">Butang jana akan menambah kiraan “prompt dijana”. Prompt masih boleh disemak dan disalin tanpa mengubah gambar asal.</p>
         <textarea id="finalPrompt" readonly aria-label="Prompt akhir"></textarea>
         <p class="prompt-note">Gunakan prompt ini bersama gambar asal di mana-mana AI image editor pilihan anda.</p>
         <div class="actions">
+          <button type="button" class="primary" id="generatePrompt">Jana Prompt</button>
           <button type="button" class="primary" id="copyPrompt">Salin Prompt</button>
           <button type="button" id="downloadPrompt">Muat Turun .txt</button>
           <button type="button" id="selectAll">Pilih Semua</button>
@@ -152,6 +191,8 @@
     </div>
   </footer>
   <div class="toast" id="toast" role="status" aria-live="polite">Prompt berjaya disalin.</div>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js" defer></script>
   <script src="app.js"></script>
 </body>
 </html>
