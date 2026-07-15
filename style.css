@@ -40,14 +40,13 @@ button, input, select, textarea { font: inherit; }
   width: 70px;
   height: 70px;
   border: 1px solid rgba(255,255,255,.4);
-  border-radius: 18px;
-  background: rgba(255,255,255,.1);
-  color: #f0c96c;
+  border-radius: 50%;
+  background: #fff;
   font-size: 22px;
   font-weight: 800;
   overflow: hidden;
 }
-.brand-mark img { display: block; width: 100%; height: 100%; padding: 5px; object-fit: contain; }
+.brand-mark img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .eyebrow { margin: 0 0 5px; color: #b8d8ef; font-size: 12px; letter-spacing: 2px; }
 h1 { margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; }
 .subtitle { margin: 8px 0 0; color: #d9eaf6; font-size: 17px; }
