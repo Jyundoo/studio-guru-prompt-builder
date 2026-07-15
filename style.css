@@ -151,34 +151,35 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .primary:hover { color: white; background: #195786; }
 .danger { color: #9b2c2c; }
 .stats-card {
-  margin-bottom: 22px;
-  padding: 22px 24px;
+  margin: 14px 0 20px;
+  padding: 16px 16px 14px;
   border: 1px solid #e5ebf1;
-  border-radius: 18px;
+  border-radius: 16px;
   background: linear-gradient(135deg, #fff, #fbfdff 58%, #f6f9fc);
   box-shadow: var(--shadow);
 }
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin: 18px 0 16px;
+  gap: 10px;
+  margin: 0 0 12px;
 }
 .stat-tile {
-  padding: 16px;
+  padding: 12px 12px 11px;
   border: 1px solid #e4ebf2;
-  border-radius: 14px;
+  border-radius: 12px;
   background: white;
 }
 .stat-label { color: var(--muted); font-size: 13px; }
-.stat-value { margin-top: 6px; color: var(--navy); font-size: 28px; font-weight: 800; line-height: 1; }
+.stat-value { margin-top: 4px; color: var(--navy); font-size: 24px; font-weight: 800; line-height: 1; }
 .stat-note { margin-top: 6px; color: var(--muted); font-size: 12px; }
-.reaction-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.reaction-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .reaction-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 44px;
+  min-height: 42px;
+  padding: 9px 12px;
 }
 .reaction-btn.active {
   border-color: var(--blue);
@@ -193,7 +194,7 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 }
 .star-btn {
   min-width: 44px;
-  padding: 10px 12px;
+  padding: 9px 11px;
   border-color: #e4ebf2;
   background: white;
 }
@@ -219,6 +220,10 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .brand-mark { width: 56px; height: 56px; border-radius: 14px; }
   .upload-layout, .form-grid, .sliders { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-card { padding: 14px 12px 12px; }
+  .stat-value { font-size: 22px; }
+  .reaction-row { align-items: stretch; }
+  .reaction-row .like { width: 100%; justify-content: center; }
   .drop-zone, .preview-box { min-height: 220px; }
   .checkbox-label { align-self: auto; }
 }
@@ -229,4 +234,8 @@ footer { padding: 24px 16px 18px; background: var(--navy); color: #cbd9e5; text-
   .card { border-radius: 14px; padding: 18px; }
   .actions button { flex: 1 1 calc(50% - 10px); }
   .stats-grid { grid-template-columns: 1fr; }
+  .stat-tile { padding: 11px; }
+  .reaction-row .like, .reaction-row .star-btn { width: 100%; justify-content: center; }
+  .stars { width: 100%; }
+  .star-btn { flex: 1 1 calc(33.333% - 6px); min-width: 0; }
 }
