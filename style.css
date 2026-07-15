@@ -151,7 +151,7 @@ input[type="range"] { width: 100%; margin: 14px 0 6px; accent-color: var(--blue)
 .primary:hover { color: white; background: #195786; }
 .danger { color: #9b2c2c; }
 .stats-card {
-  margin: 14px 0 20px;
+  margin: 0 0 20px;
   padding: 16px 16px 14px;
   border: 1px solid #e5ebf1;
   border-radius: 16px;
